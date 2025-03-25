@@ -2,7 +2,7 @@
 
 [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/ceph/go-ceph) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/ceph/go-ceph/master/LICENSE)
 
-## Introduction
+## Introductions
 
 The go-ceph project is a collection of API bindings that support the use of
 native Ceph APIs, which are C language functions, in Go. These bindings make
