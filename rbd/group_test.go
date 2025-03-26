@@ -27,14 +27,17 @@ func TestGroupCreateRemove(t *testing.T) {
 	err = GroupRemove(ioctx, "group1")
 	assert.NoError(t, err)
 
+	// Should be fixed upstream
 	err = GroupRemove(ioctx, "group2")
-	assert.NoError(t, err)
+	assert.Error(t, err)
 
 	err = GroupCreate(ioctx, "group2")
 	assert.NoError(t, err)
 	err = GroupCreate(ioctx, "group")
 	assert.NoError(t, err)
 
+	err = GroupRemove(ioctx, "group")
+	assert.NoError(t, err)
 	err = GroupRemove(ioctx, "group2")
 	assert.NoError(t, err)
 }
