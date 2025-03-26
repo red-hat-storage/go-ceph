@@ -18,14 +18,15 @@ const (
 
 // List of known CephVersion strings
 const (
-	Nautilus = "nautilus"
-	Octopus  = "octopus"
-	Pacific  = "pacific"
-	Quincy   = "quincy"
-	Reef     = "reef"
-	Squid    = "squid"
-	Tentacle = "tentacle"
-	Main     = "main"
+	Nautilus       = "nautilus"
+	Octopus        = "octopus"
+	Pacific        = "pacific"
+	Quincy         = "quincy"
+	Reef           = "reef"
+	Squid          = "squid"
+	Tentacle       = "tentacle"
+	Main           = "main"
+	RBDGroupMirror = "wip-pkalever-rbd-group-snap-mirror"
 )
 
 // CurrentCephVersion is the current Ceph version
@@ -37,7 +38,7 @@ func CurrentCephVersion() CephVersion {
 // CurrentCephVersionString is the current Ceph version string
 func CurrentCephVersionString() string {
 	switch vname := os.Getenv("CEPH_VERSION"); vname {
-	case Nautilus, Octopus, Pacific, Quincy, Reef, Squid, Tentacle, Main:
+	case Nautilus, Octopus, Pacific, Quincy, Reef, Squid, Tentacle, Main, RBDGroupMirror:
 		return vname
 	}
 	return ""
