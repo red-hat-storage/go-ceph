@@ -1,5 +1,5 @@
 ARG CEPH_IMG=quay.io/ceph/ceph
-ARG CEPH_TAG=v16
+ARG CEPH_TAG=v19
 FROM ${CEPH_IMG}:${CEPH_TAG}
 
 # A CEPH_VERSION env var is already set in the base image.
@@ -29,7 +29,7 @@ RUN true \
     && yum clean all \
     && true
 
-ARG GO_VERSION=1.21.8
+ARG GO_VERSION=1.23.7
 ENV GO_VERSION=${GO_VERSION}
 ARG GOARCH
 ENV GOARCH=${GOARCH}
