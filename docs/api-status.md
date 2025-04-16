@@ -8,9 +8,9 @@
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-Wrap | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
-MountWrapper.SetTracing | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
-MountWrapper.Open | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+Wrap | v0.33.0 | v0.35.0 | 
+MountWrapper.SetTracing | v0.33.0 | v0.35.0 | 
+MountWrapper.Open | v0.33.0 | v0.35.0 | 
 
 ## Package: cephfs/admin
 
@@ -18,11 +18,7 @@ No Preview/Deprecated APIs found. All APIs are considered stable.
 
 ## Package: rados
 
-### Preview APIs
-
-Name | Added in Version | Expected Stable Version | 
----- | ---------------- | ----------------------- | 
-Conn.GetAddrs | v0.31.0 | v0.33.0 | 
+No Preview/Deprecated APIs found. All APIs are considered stable.
 
 ## Package: rbd
 
@@ -31,7 +27,7 @@ Conn.GetAddrs | v0.31.0 | v0.33.0 |
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
 Image.EncryptionLoad2 | v0.32.0 | v0.34.0 | 
-Image.DiffIterateByID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+Image.DiffIterateByID | v0.33.0 | v0.35.0 | 
 
 ### Deprecated APIs
 
@@ -47,7 +43,11 @@ No Preview/Deprecated APIs found. All APIs are considered stable.
 
 ## Package: rgw/admin
 
-No Preview/Deprecated APIs found. All APIs are considered stable.
+### Preview APIs
+
+Name | Added in Version | Expected Stable Version | 
+---- | ---------------- | ----------------------- | 
+API.CheckBucketIndex | v0.33.0 | v0.35.0 | 
 
 ## Package: common/admin/manager
 
