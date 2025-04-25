@@ -53,7 +53,13 @@ Snapshot.Set | v0.10.0 |  |
 
 ## Package: rbd/admin
 
-No Preview/Deprecated APIs found. All APIs are considered stable.
+### Preview APIs
+
+Name | Added in Version | Expected Stable Version |
+---- | ---------------- | ----------------------- |
+RBDAdmin.GroupSnapshotSchedule | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 
 ## Package: rgw/admin
 

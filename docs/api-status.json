@@ -2098,6 +2098,10 @@
         "comment": "NewLevelSpec is used to construct a LevelSpec given a pool and\noptional namespace and image names.\n"
       },
       {
+        "name": "NewGroupLevelSpec",
+        "comment": "NewGroupLevelSpec is used to construct a LevelSpec given a pool and optional namespace and group names."
+      },
+      {
         "name": "NewRawLevelSpec",
         "comment": "NewRawLevelSpec returns a LevelSpec directly based on the spec string\nargument without constructing it from component values. This should only be\nused if NewLevelSpec can not create the levelspec value you want to pass to\nceph.\n"
       },
@@ -2156,6 +2160,20 @@
       {
         "name": "TaskAdmin.Cancel",
         "comment": "Cancel a pending or running asynchronous task.\n\nSimilar To:\n rbd task cancel <task_id>\n"
+      }
+    ],
+    "preview_api": [
+      {
+        "name": "RBDAdmin.GroupSnapshotSchedule",
+        "comment": "GroupSnapshotSchedule returns a GroupSnapshotScheduleAdmin type for managing ceph rbd mirror group snapshot schedules.",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "GroupSnapshotScheduleAdmin.Add",
+        "comment": "Add a new group snapshot schedule to the given pool/group based on the supplied.",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
       }
     ]
   },
