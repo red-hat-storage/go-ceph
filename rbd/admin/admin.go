@@ -43,6 +43,22 @@ func NewLevelSpec(pool, namespace, image string) LevelSpec {
 	return LevelSpec{s}
 }
 
+// NewGroupLevelSpec is used to construct a LevelSpec given a pool and
+// optional namespace and group names.
+func NewGroupLevelSpec(pool, namespace, group string) LevelSpec {
+	var s string
+	if group != "" && namespace != "" {
+		s = fmt.Sprintf("%s/%s/%s", pool, namespace, group)
+	} else if group != "" {
+		s = fmt.Sprintf("%s/%s", pool, group)
+	} else if namespace != "" {
+		s = fmt.Sprintf("%s/%s/", pool, namespace)
+	} else {
+		s = fmt.Sprintf("%s/", pool)
+	}
+	return LevelSpec{s}
+}
+
 // NewRawLevelSpec returns a LevelSpec directly based on the spec string
 // argument without constructing it from component values. This should only be
 // used if NewLevelSpec can not create the levelspec value you want to pass to
