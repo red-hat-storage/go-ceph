@@ -1987,6 +1987,66 @@
         "comment": "DiffIterateByID calls a callback on changed extents of an image.\n\nCalling DiffIterateByID will cause the callback specified in the\nDiffIterateByIDConfig to be called as many times as there are changed\nregions in the image (controlled by the parameters as passed to librbd).\n\nSee the documentation of DiffIterateCallback for a description of the\narguments to the callback and the return behavior.\n\nImplements:\n\n\tint rbd_diff_iterate3(rbd_image_t image,\n\t                      uint64_t from_snap_id,\n\t                      uint64_t ofs, uint64_t len,\n\t                      uint32_t flags,\n\t                      int (*cb)(uint64_t, size_t, int, void *),\n\t                      void *arg);\n",
         "added_in_version": "v0.33.0",
         "expected_stable_version": "v0.35.0"
+      },
+      {
+        "name": "MirrorGroupEnable",
+        "comment": "MirrorGroupEnable will enable mirroring for a group using the specified mode.\n\nImplements:\n\n\tint rbd_mirror_group_enable(rados_ioctx_t p, const char *name,\n\t  \t\t\t\t\t\t\trbd_mirror_image_mode_t mirror_image_mode)\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "MirrorGroupDisable",
+        "comment": "MirrorGroupDisable will disable mirroring for a group.\n\nImplements:\n\n\tint rbd_mirror_group_disable(rados_ioctx_t p, const char *name,\n\t  \t\t\t\t\t\t\tbool force)\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "MirrorGroupPromote",
+        "comment": "MirrorGroupPromote will promote the mirrored group to primary state.\n\nImplements:\n\n\tint rbd_mirror_group_promote(rados_ioctx_t p, const char *name,\n\t  \t\t\t\t\t\t\t bool force)\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "MirrorGroupDemote",
+        "comment": "MirrorGroupDemote will demote the mirrored group to secondary state.\n\nImplements:\n\n\tint rbd_mirror_group_demote(rados_ioctx_t p, const char *name)\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "MirrorGroupResync",
+        "comment": "MirrorGroupResync is used to manually resolve split-brain status by triggering\nresynchronization.\n\nImplements:\n\n\tint rbd_mirror_group_resync(rados_ioctx_t p, const char *name)\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "MirrorGroupState.String",
+        "comment": "String representation of MirrorGroupState.\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "GetMirrorGroupInfo",
+        "comment": "GetMirrorGroupInfo returns the mirroring info of the group.\n\nImplements:\n\n\tint rbd_mirror_group_get_info(rados_ioctx_t p, const char *name,\n\t\t\t\t\t\t\t\t  rbd_mirror_group_info_t *mirror_group_info,\n\t\t\t\t\t\t\t\t  size_t info_size)\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "MirrorGroupStatusState.String",
+        "comment": "String represents the MirrorImageStatusState as a short string.\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "GlobalMirrorGroupStatus.LocalStatus",
+        "comment": "LocalStatus returns one SiteMirrorGroupStatus item from the SiteStatuses\nslice that corresponds to the local site's status. If the local status\nis not found than the error ErrNotExist will be returned.\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "GetGlobalMirrorGroupStatus",
+        "comment": "GetGlobalMirrorGroupStatus returns status information pertaining to the state\nof a groups's mirroring.\n\nImplements:\n\n\tint rbd_mirror_group_get_global_status(\n\t\trados_ioctx_t p,\n\t\tconst char *group_name\n\t\trbd_mirror_group_global_status_t *mirror_group_status,\n\t\tsize_t status_size);\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
       }
     ]
   },
@@ -1999,6 +2059,10 @@
       {
         "name": "NewLevelSpec",
         "comment": "NewLevelSpec is used to construct a LevelSpec given a pool and\noptional namespace and image names.\n"
+      },
+      {
+        "name": "NewGroupLevelSpec",
+        "comment": "NewGroupLevelSpec is used to construct a LevelSpec given a pool and optional namespace and group names."
       },
       {
         "name": "NewRawLevelSpec",
@@ -2059,6 +2123,20 @@
       {
         "name": "TaskAdmin.Cancel",
         "comment": "Cancel a pending or running asynchronous task.\n\nSimilar To:\n rbd task cancel <task_id>\n"
+      }
+    ],
+    "preview_api": [
+      {
+        "name": "RBDAdmin.GroupSnapshotSchedule",
+        "comment": "GroupSnapshotSchedule returns a GroupSnapshotScheduleAdmin type for managing ceph rbd mirror group snapshot schedules.",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "GroupSnapshotScheduleAdmin.Add",
+        "comment": "Add a new group snapshot schedule to the given pool/group based on the supplied.",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
       }
     ]
   },

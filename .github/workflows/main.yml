@@ -5,12 +5,10 @@ name: CI
 # commited to master.
 on:
   push:
-    branches: [ master ]
+    branches: [ release-4.20 ]
   pull_request:
     branches:
-      - master
-      # run the CI also on PRs that are based on branches starting with pr/...
-      - 'pr/**'
+      - release-4.20
   schedule:
     - cron: 1 1 * * *
   workflow_dispatch:
@@ -66,28 +64,17 @@ jobs:
       fail-fast: false
       matrix:
         ceph_version:
-        - "octopus"
-        - "pacific"
-        - "quincy"
-        - "reef"
-        - "squid"
-      # - "tentacle"
-        - "pre-reef"
-        - "pre-squid"
-        - "pre-tentacle"
-        - "main"
+        - wip-pkalever-rbd-group-snap-mirror
         go_version:
         - ${{ needs.go-versions.outputs.latest }}
-        include:
-        - ceph_version: "squid"
-          go_version: ${{ needs.go-versions.outputs.prev }}
-        - ceph_version: "squid"
-          go_version: ${{ needs.go-versions.outputs.unstable }}
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
     - name: Set cores to get stored as "core"
       run:  sudo bash -c 'echo "core" > /proc/sys/kernel/core_pattern'
     - name: Run tests
+      env:
+        CEPH_IMG: ghcr.io/nikhil-ladha/rbd-group-mirroring
+        CEPH_TAG: latest
       run: make test-containers-test "CEPH_VERSION=${{ matrix.ceph_version }}" "GO_VERSION=${{ matrix.go_version }}" "RESULTS_DIR=$PWD/_results"
     # As an example, one can enable tmate debugging of manually-triggered
     # workflows if the input option was provided
