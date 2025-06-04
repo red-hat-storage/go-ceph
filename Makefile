@@ -32,6 +32,9 @@ endif
 ifeq ($(CEPH_VERSION),squid)
 	CEPH_TAG ?= v19
 endif
+ifeq ($(CEPH_VERSION),tentacle)
+	CEPH_TAG ?= v20
+endif
 # pre-<codename> indicates we want to consume pre-release versions of ceph from
 # the ceph ci. This way we can start testing on ceph versions before they hit
 # quay.io/ceph/ceph
@@ -46,6 +49,12 @@ ifeq ($(CEPH_VERSION),pre-squid)
 	CEPH_IMG ?= quay.ceph.io/ceph-ci/ceph
 	GO_CEPH_VERSION := squid
 	BUILD_TAGS := squid,ceph_pre_squid
+endif
+ifeq ($(CEPH_VERSION),pre-tentacle)
+	CEPH_TAG ?= tentacle
+	CEPH_IMG ?= quay.ceph.io/ceph-ci/ceph
+	GO_CEPH_VERSION := tentacle
+	BUILD_TAGS := tentacle,ceph_pre_tentacle
 endif
 ifeq ($(CEPH_VERSION),main)
 	CEPH_TAG ?= main
@@ -318,8 +327,7 @@ api-report-updates: api-check-updates
 api-report-issuetemplate: api-check-updates
 	./contrib/apiage.py --mode=updates-to-issuetemplate \
 		--current-tag="$$(git describe --tags --abbrev=0)" \
-		< $(RESULTS_DIR)/updates-found.json \
-		> $(RESULTS_DIR)/issue.md
+		< $(RESULTS_DIR)/updates-found.json
 
 ifeq ($(RESULTS_DIR),)
 IMPLEMENTS_DIR:=$(PWD)/_results
