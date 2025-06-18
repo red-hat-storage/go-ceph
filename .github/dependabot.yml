@@ -2,6 +2,8 @@
 version: 2
 updates:
   - package-ecosystem: "gomod"
+    # ODF only: disable PR creation, synced from upstream
+    open-pull-requests-limit: 0
     directory: "/"
     schedule:
       interval: "monthly"
@@ -15,6 +17,8 @@ updates:
         patterns:
           - "github.com/aws/aws-sdk-*"
   - package-ecosystem: "gomod"
+    # ODF only: disable PR creation, synced from upstream
+    open-pull-requests-limit: 0
     directory: "/contrib/implements"
     schedule:
       interval: "monthly"
@@ -24,6 +28,8 @@ updates:
     commit-message:
       prefix: "contrib"
   - package-ecosystem: "github-actions"
+    # ODF only: disable PR creation, synced from upstream
+    open-pull-requests-limit: 0
     directory: "/"
     schedule:
       interval: "monthly"
