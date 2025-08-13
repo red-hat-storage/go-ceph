@@ -8,13 +8,10 @@
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-Wrap | v0.33.0 | v0.35.0 | 
-MountWrapper.SetTracing | v0.33.0 | v0.35.0 | 
-MountWrapper.Open | v0.33.0 | v0.35.0 | 
-File.Fd | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
-File.Futime | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
-File.Futimens | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
-File.Futimes | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+File.Fd | v0.35.0 | v0.37.0 | 
+File.Futime | v0.35.0 | v0.37.0 | 
+File.Futimens | v0.35.0 | v0.37.0 | 
+File.Futimes | v0.35.0 | v0.37.0 | 
 
 ## Package: cephfs/admin
 
@@ -29,12 +26,6 @@ FSAdmin.SubVolumeSnapshotPath | v0.34.0 | v0.36.0 |
 No Preview/Deprecated APIs found. All APIs are considered stable.
 
 ## Package: rbd
-
-### Preview APIs
-
-Name | Added in Version | Expected Stable Version | 
----- | ---------------- | ----------------------- | 
-Image.DiffIterateByID | v0.33.0 | v0.35.0 | 
 
 ### Deprecated APIs
 
