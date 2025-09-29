@@ -5,12 +5,10 @@ name: CI
 # commited to master.
 on:
   push:
-    branches: [ master ]
+    branches: [ release-4.21 ]
   pull_request:
     branches:
-      - master
-      # run the CI also on PRs that are based on branches starting with pr/...
-      - 'pr/**'
+      - release-4.21
   schedule:
     - cron: 1 1 * * *
   workflow_dispatch:
@@ -66,28 +64,17 @@ jobs:
       fail-fast: false
       matrix:
         ceph_version:
-        - "octopus"
-        - "pacific"
-        - "quincy"
-        - "reef"
-        - "squid"
-        - "tentacle"
-        - "pre-reef"
-        - "pre-squid"
-        - "pre-tentacle"
-        - "main"
+        - wip-rbd-cgsm-base
         go_version:
         - ${{ needs.go-versions.outputs.latest }}
-        include:
-        - ceph_version: "squid"
-          go_version: ${{ needs.go-versions.outputs.prev }}
-        - ceph_version: "squid"
-          go_version: ${{ needs.go-versions.outputs.unstable }}
     steps:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
     - name: Set cores to get stored as "core"
       run:  sudo bash -c 'echo "core" > /proc/sys/kernel/core_pattern'
     - name: Run tests
+      env:
+        CEPH_IMG: quay.ceph.io/ceph-ci/ceph
+        CEPH_TAG: wip-rbd-cgsm-base
       run: make test-containers-test "CEPH_VERSION=${{ matrix.ceph_version }}" "GO_VERSION=${{ matrix.go_version }}" "RESULTS_DIR=$PWD/_results"
     # As an example, one can enable tmate debugging of manually-triggered
     # workflows if the input option was provided
