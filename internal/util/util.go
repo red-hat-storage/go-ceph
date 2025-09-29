@@ -27,7 +27,7 @@ const (
 	Squid          = "squid"
 	Tentacle       = "tentacle"
 	Main           = "main"
-	RBDGroupMirror = "wip-pkalever-rbd-group-snap-mirror"
+	RBDGroupMirror = "wip-rbd-cgsm-base"
 )
 
 // CurrentCephVersion is the current Ceph version
