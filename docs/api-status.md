@@ -41,6 +41,7 @@ GetMirrorGroupInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
 MirrorGroupStatusState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
 GlobalMirrorGroupStatus.LocalStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
 GetGlobalMirrorGroupStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+Image.RemoveSnapByID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 
 ### Deprecated APIs
 
