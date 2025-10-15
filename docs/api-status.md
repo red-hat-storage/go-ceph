@@ -80,3 +80,14 @@ Admin.OSDBlocklist | v0.36.0 | v0.38.0 |
 Admin.OSDBlocklistAdd | v0.36.0 | v0.38.0 | 
 Admin.OSDBlocklistRemove | v0.36.0 | v0.38.0 | 
 
+## Package: common/admin/nvmegw
+
+### Preview APIs
+
+Name | Added in Version | Expected Stable Version | 
+---- | ---------------- | ----------------------- | 
+NewFromConn | v0.36.0 | v0.38.0 | 
+Admin.CreateGateway | v0.36.0 | v0.38.0 | 
+Admin.DeleteGateway | v0.36.0 | v0.38.0 | 
+Admin.ShowGateways | v0.36.0 | v0.38.0 | 
+
