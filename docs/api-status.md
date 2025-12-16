@@ -59,11 +59,7 @@ GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
 
 ## Package: rgw/admin
 
-### Preview APIs
-
-Name | Added in Version | Expected Stable Version | 
----- | ---------------- | ----------------------- | 
-API.CheckBucketIndex | v0.33.0 | v0.35.0 | 
+No Preview/Deprecated APIs found. All APIs are considered stable.
 
 ## Package: common/admin/manager
 
