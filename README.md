@@ -73,6 +73,8 @@ go test -tags pacific ....
 
 | go-ceph version | Supported Ceph Versions | Deprecated Ceph Versions |
 | --------------- | ------------------------| -------------------------|
+| v0.37.0         | reef, squid, tentacle   | pacific, quincy          |
+| v0.36.0         | reef, squid, tentacle   | pacific, quincy          |
 | v0.35.0         | quincy, reef, squid     | octopus, pacific         |
 | v0.34.0         | pacific, quincy, reef, squid   | octopus           |
 | v0.33.0         | pacific, quincy, reef, squid   | octopus           |
@@ -157,5 +159,6 @@ different channels:
   [user's mailing list](https://lists.ceph.io/hyperkitty/list/ceph-users@ceph.io/)
   and [dev list](https://lists.ceph.io/hyperkitty/list/dev@ceph.io/)
   and we also announce our releases on those lists
-* You can sometimes find us in the
-  [#ceph-devel IRC channel](https://ceph.io/irc/) - hours may vary
+* You can sometimes chat with us in realtime in the
+  [#go-ceph Slack channel](https://ceph.io/en/community/connect/) or
+  [#ceph-devel Slack channel](https://ceph.io/en/community/connect/)
