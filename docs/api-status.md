@@ -8,18 +8,13 @@
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-File.Fd | v0.35.0 | v0.37.0 | 
-File.Futime | v0.35.0 | v0.37.0 | 
-File.Futimens | v0.35.0 | v0.37.0 | 
-File.Futimes | v0.35.0 | v0.37.0 | 
+OpenSnapDiff | v0.37.0 | v0.39.0 | 
+SnapDiffInfo.Readdir | v0.37.0 | v0.39.0 | 
+SnapDiffInfo.Close | v0.37.0 | v0.39.0 | 
 
 ## Package: cephfs/admin
 
-### Preview APIs
-
-Name | Added in Version | Expected Stable Version | 
----- | ---------------- | ----------------------- | 
-FSAdmin.SubVolumeSnapshotPath | v0.34.0 | v0.36.0 | 
+No Preview/Deprecated APIs found. All APIs are considered stable.
 
 ## Package: rados
 
@@ -31,17 +26,18 @@ No Preview/Deprecated APIs found. All APIs are considered stable.
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-Image.GetDataPoolID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupEnable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupDisable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupPromote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupDemote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupResync | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-GetMirrorGroupInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupStatusState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-GlobalMirrorGroupStatus.LocalStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-GetGlobalMirrorGroupStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+Image.GetDataPoolID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupEnable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupDisable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupPromote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupDemote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupResync | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+GetMirrorGroupInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupStatusState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+GlobalMirrorGroupStatus.LocalStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+GetGlobalMirrorGroupStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+Image.RemoveSnapByID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 
 ### Deprecated APIs
 
@@ -55,19 +51,14 @@ Snapshot.Set | v0.10.0 |  |
 
 ### Preview APIs
 
-Name | Added in Version | Expected Stable Version |
----- | ---------------- | ----------------------- |
-RBDAdmin.GroupSnapshotSchedule | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+Name | Added in Version | Expected Stable Version | 
+---- | ---------------- | ----------------------- | 
+RBDAdmin.GroupSnapshotSchedule | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 
 ## Package: rgw/admin
 
-### Preview APIs
-
-Name | Added in Version | Expected Stable Version | 
----- | ---------------- | ----------------------- | 
-API.CheckBucketIndex | v0.33.0 | v0.35.0 | 
+No Preview/Deprecated APIs found. All APIs are considered stable.
 
 ## Package: common/admin/manager
 
@@ -91,65 +82,46 @@ No Preview/Deprecated APIs found. All APIs are considered stable.
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-NewFromConn | v0.34.0 | v0.36.0 | 
-SimplePlacement | v0.34.0 | v0.36.0 | 
-Cluster.Type | v0.34.0 | v0.36.0 | 
-Cluster.Intent | v0.34.0 | v0.36.0 | 
-Cluster.Identity | v0.34.0 | v0.36.0 | 
-Cluster.MarshalJSON | v0.34.0 | v0.36.0 | 
-Cluster.Validate | v0.34.0 | v0.36.0 | 
-Cluster.SetPlacement | v0.34.0 | v0.36.0 | 
-NewUserCluster | v0.34.0 | v0.36.0 | 
-NewActiveDirectoryCluster | v0.34.0 | v0.36.0 | 
-NewClusterToRemove | v0.34.0 | v0.36.0 | 
-JoinAuth.Type | v0.34.0 | v0.36.0 | 
-JoinAuth.Intent | v0.34.0 | v0.36.0 | 
-JoinAuth.Identity | v0.34.0 | v0.36.0 | 
-JoinAuth.Validate | v0.34.0 | v0.36.0 | 
-JoinAuth.MarshalJSON | v0.34.0 | v0.36.0 | 
-JoinAuth.SetAuth | v0.34.0 | v0.36.0 | 
-NewJoinAuth | v0.34.0 | v0.36.0 | 
-NewLinkedJoinAuth | v0.34.0 | v0.36.0 | 
-NewJoinAuthToRemove | v0.34.0 | v0.36.0 | 
-ResourceType.Type | v0.34.0 | v0.36.0 | 
-ResourceType.String | v0.34.0 | v0.36.0 | 
-ResourceID.Type | v0.34.0 | v0.36.0 | 
-ResourceID.String | v0.34.0 | v0.36.0 | 
-ChildResourceID.Type | v0.34.0 | v0.36.0 | 
-ChildResourceID.String | v0.34.0 | v0.36.0 | 
-Admin.Show | v0.34.0 | v0.36.0 | 
-Admin.Apply | v0.34.0 | v0.36.0 | 
-ValidateResources | v0.34.0 | v0.36.0 | 
-Admin.RemoveCluster | v0.34.0 | v0.36.0 | 
-Admin.RemoveShare | v0.34.0 | v0.36.0 | 
-Admin.RemoveJoinAuth | v0.34.0 | v0.36.0 | 
-Admin.RemoveUsersAndGroups | v0.34.0 | v0.36.0 | 
-Result.UnmarshalJSON | v0.34.0 | v0.36.0 | 
-Result.Ok | v0.34.0 | v0.36.0 | 
-Result.Resource | v0.34.0 | v0.36.0 | 
-Result.Message | v0.34.0 | v0.36.0 | 
-Result.Error | v0.34.0 | v0.36.0 | 
-Result.State | v0.34.0 | v0.36.0 | 
-Result.Dump | v0.34.0 | v0.36.0 | 
-ResultGroup.Ok | v0.34.0 | v0.36.0 | 
-ResultGroup.ErrorResults | v0.34.0 | v0.36.0 | 
-ResultGroup.Error | v0.34.0 | v0.36.0 | 
-ShareAccess.Validate | v0.34.0 | v0.36.0 | 
-Share.Type | v0.34.0 | v0.36.0 | 
-Share.Intent | v0.34.0 | v0.36.0 | 
-Share.Identity | v0.34.0 | v0.36.0 | 
-Share.MarshalJSON | v0.34.0 | v0.36.0 | 
-Share.Validate | v0.34.0 | v0.36.0 | 
-Share.SetCephFS | v0.34.0 | v0.36.0 | 
-NewShare | v0.34.0 | v0.36.0 | 
-NewShareToRemove | v0.34.0 | v0.36.0 | 
-UsersAndGroups.Type | v0.34.0 | v0.36.0 | 
-UsersAndGroups.Intent | v0.34.0 | v0.36.0 | 
-UsersAndGroups.Identity | v0.34.0 | v0.36.0 | 
-UsersAndGroups.Validate | v0.34.0 | v0.36.0 | 
-UsersAndGroups.MarshalJSON | v0.34.0 | v0.36.0 | 
-UsersAndGroups.SetValues | v0.34.0 | v0.36.0 | 
-NewUsersAndGroups | v0.34.0 | v0.36.0 | 
-NewLinkedUsersAndGroups | v0.34.0 | v0.36.0 | 
-NewUsersAndGroupsToRemove | v0.34.0 | v0.36.0 | 
+NewBindAddress | v0.37.0 | v0.39.0 | 
+NewNetworkBindAddress | v0.37.0 | v0.39.0 | 
+BindAddress.MarshalJSON | v0.37.0 | v0.39.0 | 
+BindAddress.UnmarshalJSON | v0.37.0 | v0.39.0 | 
+BindAddress.Address | v0.37.0 | v0.39.0 | 
+BindAddress.Network | v0.37.0 | v0.39.0 | 
+BindAddress.IsNetwork | v0.37.0 | v0.39.0 | 
+BindAddress.String | v0.37.0 | v0.39.0 | 
+Cluster.Validate | v0.37.0 | v0.39.0 | 
+RemoteControl.Validate | v0.37.0 | v0.39.0 | 
+TLSCredential.Type | v0.37.0 | v0.39.0 | 
+TLSCredential.Intent | v0.37.0 | v0.39.0 | 
+TLSCredential.SetIntent | v0.37.0 | v0.39.0 | 
+TLSCredential.Identity | v0.37.0 | v0.39.0 | 
+TLSCredential.Validate | v0.37.0 | v0.39.0 | 
+TLSCredential.MarshalJSON | v0.37.0 | v0.39.0 | 
+TLSCredential.Set | v0.37.0 | v0.39.0 | 
+NewTLSCredential | v0.37.0 | v0.39.0 | 
+NewLinkedTLSCredential | v0.37.0 | v0.39.0 | 
+NewTLSCredentialToRemove | v0.37.0 | v0.39.0 | 
+
+## Package: common/admin/osd
+
+### Preview APIs
+
+Name | Added in Version | Expected Stable Version | 
+---- | ---------------- | ----------------------- | 
+NewFromConn | v0.36.0 | v0.38.0 | 
+Admin.OSDBlocklist | v0.36.0 | v0.39.0 | 
+Admin.OSDBlocklistAdd | v0.36.0 | v0.39.0 | 
+Admin.OSDBlocklistRemove | v0.36.0 | v0.39.0 | 
+
+## Package: common/admin/nvmegw
+
+### Preview APIs
+
+Name | Added in Version | Expected Stable Version | 
+---- | ---------------- | ----------------------- | 
+NewFromConn | v0.36.0 | v0.38.0 | 
+Admin.CreateGateway | v0.36.0 | v0.38.0 | 
+Admin.DeleteGateway | v0.36.0 | v0.38.0 | 
+Admin.ShowGateways | v0.36.0 | v0.38.0 | 
 
