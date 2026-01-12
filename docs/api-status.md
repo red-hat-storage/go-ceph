@@ -26,17 +26,17 @@ No Preview/Deprecated APIs found. All APIs are considered stable.
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-Image.GetDataPoolID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupEnable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupDisable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupPromote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupDemote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupResync | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-GetMirrorGroupInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-MirrorGroupStatusState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-GlobalMirrorGroupStatus.LocalStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-GetGlobalMirrorGroupStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+Image.GetDataPoolID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupEnable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupDisable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupPromote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupDemote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupResync | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+GetMirrorGroupInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+MirrorGroupStatusState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+GlobalMirrorGroupStatus.LocalStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+GetGlobalMirrorGroupStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 Image.RemoveSnapByID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 
 ### Deprecated APIs
@@ -51,10 +51,9 @@ Snapshot.Set | v0.10.0 |  |
 
 ### Preview APIs
 
-Name | Added in Version | Expected Stable Version |
----- | ---------------- | ----------------------- |
-RBDAdmin.GroupSnapshotSchedule | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
-GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+Name | Added in Version | Expected Stable Version | 
+---- | ---------------- | ----------------------- | 
+RBDAdmin.GroupSnapshotSchedule | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 
 ## Package: rgw/admin

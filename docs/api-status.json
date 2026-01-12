@@ -2101,6 +2101,12 @@
         "comment": "GetGlobalMirrorGroupStatus returns status information pertaining to the state\nof a groups's mirroring.\n\nImplements:\n\n\tint rbd_mirror_group_get_global_status(\n\t\trados_ioctx_t p,\n\t\tconst char *group_name\n\t\trbd_mirror_group_global_status_t *mirror_group_status,\n\t\tsize_t status_size);\n",
         "added_in_version": "$NEXT_RELEASE",
         "expected_stable_version": "$NEXT_RELEASE_STABLE"
+      },
+      {
+        "name": "Image.RemoveSnapByID",
+        "comment": "RemoveSnapByID removes an existing snapshot. This can be used to manually\nremove a snapshot from the trash.\n\nImplements:\n\n\tint rbd_snap_remove_by_id(rbd_image_t image, uint64_t snap_id);\n",
+        "added_in_version": "$NEXT_RELEASE",
+        "expected_stable_version": "$NEXT_RELEASE_STABLE"
       }
     ]
   },
