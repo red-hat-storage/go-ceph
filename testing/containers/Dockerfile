@@ -8,16 +8,16 @@ FROM ${CEPH_IMG}:${CEPH_TAG}
 ARG GO_CEPH_VERSION
 ENV GO_CEPH_VERSION=${GO_CEPH_VERSION:-$CEPH_VERSION}
 
-COPY --from=dir setup-pkgs.sh /tmp/setup-pkgs.sh
+COPY setup-pkgs.sh /tmp/setup-pkgs.sh
 RUN /tmp/setup-pkgs.sh && rm /tmp/setup-pkgs.sh
 
-ARG GO_VERSION=1.24.9
+ARG GO_VERSION=1.25.8
 ENV GO_VERSION=${GO_VERSION}
 ARG GOARCH
 ENV GOARCH=${GOARCH}
 ARG GOPROXY
 ENV GOPROXY=${GOPROXY}
-COPY --from=dir setup-go.sh /tmp/setup-go.sh
+COPY setup-go.sh /tmp/setup-go.sh
 RUN /tmp/setup-go.sh && rm /tmp/setup-go.sh
 
 ENV PATH="${PATH}:/opt/go/bin"
