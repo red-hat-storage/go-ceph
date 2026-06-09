@@ -51,6 +51,9 @@ func CurrentCephVersionString() string {
 		Main:
 		return vname
 	}
+	if os.Getenv("CEPH_VERSION") == "wip-rbd-cgsm-base" {
+		return "wip-rbd-cgsm-base"
+	}
 	return ""
 }
 
