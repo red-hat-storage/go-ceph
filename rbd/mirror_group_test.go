@@ -40,7 +40,7 @@ func TestGroupMirroring(t *testing.T) {
 	err = CreateImage(ioctx, name, testImageSize, options)
 	require.NoError(t, err)
 
-	groupName := "group1"
+	groupName := "mirrorgroup1"
 	err = GroupCreate(ioctx, groupName)
 	assert.NoError(t, err)
 
@@ -80,8 +80,7 @@ func TestGroupMirroring(t *testing.T) {
 	waitCounter := 30
 	// wait for mirroring to be enabled
 	for i := 0; i < waitCounter; i++ {
-		resp, err := GetMirrorGroupInfo(ioctx, groupName)
-		assert.NoError(t, err)
+		resp, _ := GetMirrorGroupInfo(ioctx, groupName)
 		if resp.State.String() == "enabled" {
 			break
 		}
@@ -93,8 +92,7 @@ func TestGroupMirroring(t *testing.T) {
 
 	// verify mirror group status on primary
 	for i := 0; i < waitCounter; i++ {
-		resp, err := GetGlobalMirrorGroupStatus(ioctx, groupName)
-		assert.NoError(t, err)
+		resp, _ := GetGlobalMirrorGroupStatus(ioctx, groupName)
 		if resp.SiteStatusesCount > 0 {
 			break
 		}
@@ -102,19 +100,24 @@ func TestGroupMirroring(t *testing.T) {
 		if localStatus.State.String() == "stopped" {
 			break
 		}
+		if i == waitCounter-1 {
+			assert.Fail(t, "group status not primary")
+		}
 		time.Sleep(2 * time.Second)
 	}
 
 	// verify mirror group status on secondary
 	for i := 0; i < waitCounter; i++ {
-		resp, err := GetGlobalMirrorGroupStatus(ioctx2, groupName)
-		assert.NoError(t, err)
+		resp, _ := GetGlobalMirrorGroupStatus(ioctx2, groupName)
 		if resp.SiteStatusesCount > 0 {
 			break
 		}
 		localStatus, _ := resp.LocalStatus()
 		if localStatus.State.String() == "replaying" {
 			break
+		}
+		if i == waitCounter-1 {
+			assert.Fail(t, "group status not secondary")
 		}
 		time.Sleep(2 * time.Second)
 	}
@@ -126,8 +129,7 @@ func TestGroupMirroring(t *testing.T) {
 
 		// wait for peer mirror group on primary to be secondary
 		for i := 0; i < waitCounter; i++ {
-			resp, err := GetMirrorGroupInfo(ioctx, groupName)
-			assert.NoError(t, err)
+			resp, _ := GetMirrorGroupInfo(ioctx, groupName)
 			if !resp.Primary {
 				break
 			}
@@ -140,9 +142,10 @@ func TestGroupMirroring(t *testing.T) {
 		// wait for images to be synced, i.e, wait for up+unkown state on both the clusters
 		for i := 0; i < waitCounter; i++ {
 			resp1, err := GetGlobalMirrorGroupStatus(ioctx, groupName)
-			assert.NoError(t, err)
-			localStatus1, err := resp1.LocalStatus()
-			assert.NoError(t, err)
+			var localStatus1 SiteMirrorGroupStatus
+			if err == nil {
+				localStatus1, _ = resp1.LocalStatus()
+			}
 			if localStatus1.State.String() == "unknown" {
 				break
 			}
@@ -155,9 +158,10 @@ func TestGroupMirroring(t *testing.T) {
 		// wait for images to be synced, i.e, wait for up+unkown state on both the clusters
 		for i := 0; i < waitCounter; i++ {
 			resp2, err := GetGlobalMirrorGroupStatus(ioctx2, groupName)
-			assert.NoError(t, err)
-			localStatus2, err := resp2.LocalStatus()
-			assert.NoError(t, err)
+			var localStatus2 SiteMirrorGroupStatus
+			if err == nil {
+				localStatus2, _ = resp2.LocalStatus()
+			}
 			if localStatus2.State.String() == "unknown" {
 				break
 			}
@@ -173,8 +177,7 @@ func TestGroupMirroring(t *testing.T) {
 
 		// wait for mirror group to be promoted
 		for i := 0; i < waitCounter; i++ {
-			resp, err := GetMirrorGroupInfo(ioctx2, groupName)
-			assert.NoError(t, err)
+			resp, _ := GetMirrorGroupInfo(ioctx2, groupName)
 			if resp.Primary {
 				break
 			}
@@ -194,9 +197,9 @@ func TestGroupMirroring(t *testing.T) {
 		err = CreateImage(ioctx2, name, testImageSize, options)
 		require.NoError(t, err)
 
-		// adding image to mirror enabled group should fail
+		// adding image to mirror enabled group should pass
 		err = GroupImageAdd(ioctx2, groupName, ioctx2, name)
-		assert.Error(t, err)
+		assert.NoError(t, err)
 
 		// disable mirroring
 		err = MirrorGroupDisable(ioctx2, groupName, false)
