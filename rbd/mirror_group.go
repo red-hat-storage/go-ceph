@@ -1,3 +1,6 @@
+//go:build ceph_preview
+// +build ceph_preview
+
 package rbd
 
 // #cgo LDFLAGS: -lrbd

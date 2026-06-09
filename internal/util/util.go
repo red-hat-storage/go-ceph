@@ -15,20 +15,22 @@ const (
 	CephSquid
 	CephTentacle
 	CephUmbrella
+	CephRBDGroupMirror
 	CephUnknown
 )
 
 // List of known CephVersion strings
 const (
-	Nautilus = "nautilus"
-	Octopus  = "octopus"
-	Pacific  = "pacific"
-	Quincy   = "quincy"
-	Reef     = "reef"
-	Squid    = "squid"
-	Tentacle = "tentacle"
-	Umbrella = "umbrella"
-	Main     = "main"
+	Nautilus       = "nautilus"
+	Octopus        = "octopus"
+	Pacific        = "pacific"
+	Quincy         = "quincy"
+	Reef           = "reef"
+	Squid          = "squid"
+	Tentacle       = "tentacle"
+	Umbrella       = "umbrella"
+	Main           = "main"
+	RBDGroupMirror = "wip-rbd-cgsm-base"
 )
 
 // CurrentCephVersion is the current Ceph version
@@ -48,7 +50,8 @@ func CurrentCephVersionString() string {
 		Squid,
 		Tentacle,
 		Umbrella,
-		Main:
+		Main,
+		RBDGroupMirror:
 		return vname
 	}
 	return ""
@@ -73,6 +76,8 @@ func CephVersionOfString(vname string) CephVersion {
 		return CephTentacle
 	case "umbrella":
 		return CephUmbrella
+	case "wip-rbd-cgsm-base":
+		return CephRBDGroupMirror
 	default:
 		return CephUnknown
 	}

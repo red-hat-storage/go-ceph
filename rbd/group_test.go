@@ -3,6 +3,7 @@ package rbd
 import (
 	"testing"
 
+	"github.com/ceph/go-ceph/internal/util"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -28,13 +29,19 @@ func TestGroupCreateRemove(t *testing.T) {
 	assert.NoError(t, err)
 
 	err = GroupRemove(ioctx, "group2")
-	assert.NoError(t, err)
+	if util.CurrentCephVersion() != util.CephRBDGroupMirror {
+		assert.NoError(t, err)
+	} else {
+		assert.Error(t, err)
+	}
 
 	err = GroupCreate(ioctx, "group2")
 	assert.NoError(t, err)
 	err = GroupCreate(ioctx, "group")
 	assert.NoError(t, err)
 
+	err = GroupRemove(ioctx, "group")
+	assert.NoError(t, err)
 	err = GroupRemove(ioctx, "group2")
 	assert.NoError(t, err)
 }
