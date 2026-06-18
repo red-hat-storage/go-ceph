@@ -1,6 +1,6 @@
 module implements
 
-go 1.21
+go 1.21.9
 
 require modernc.org/cc/v4 v4.26.2
 
