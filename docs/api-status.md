@@ -4,14 +4,7 @@
 
 ## Package: cephfs
 
-### Preview APIs
-
-Name | Added in Version | Expected Stable Version | 
----- | ---------------- | ----------------------- | 
-FileBlockDiffInit | v0.38.0 | v0.40.0 | 
-FileBlockDiffInfo.Close | v0.38.0 | v0.40.0 | 
-FileBlockDiffInfo.More | v0.38.0 | v0.40.0 | 
-FileBlockDiffInfo.Read | v0.38.0 | v0.40.0 | 
+No Preview/Deprecated APIs found. All APIs are considered stable.
 
 ## Package: cephfs/admin
 
@@ -19,7 +12,7 @@ FileBlockDiffInfo.Read | v0.38.0 | v0.40.0 |
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-FSAdmin.SubVolumeGroupInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+FSAdmin.SubVolumeGroupInfo | v0.40.0 | v0.42.0 | 
 
 ## Package: rados
 
@@ -27,7 +20,7 @@ FSAdmin.SubVolumeGroupInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-IOContext.Checksum | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+IOContext.Checksum | v0.40.0 | v0.42.0 | 
 
 ## Package: rbd
 
@@ -35,7 +28,7 @@ IOContext.Checksum | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-Image.FlattenWithProgress | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+Image.FlattenWithProgress | v0.40.0 | v0.42.0 | 
 
 ### Deprecated APIs
 
@@ -55,12 +48,8 @@ No Preview/Deprecated APIs found. All APIs are considered stable.
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-API.CreateAccount | v0.38.0 | v0.40.0 | 
-API.GetAccount | v0.38.0 | v0.40.0 | 
-API.DeleteAccount | v0.38.0 | v0.40.0 | 
-API.ModifyAccount | v0.38.0 | v0.40.0 | 
-API.SetIndividualBucketRateLimit | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
-API.GetIndividualBucketRateLimit | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+API.SetIndividualBucketRateLimit | v0.40.0 | v0.42.0 | 
+API.GetIndividualBucketRateLimit | v0.40.0 | v0.42.0 | 
 
 ## Package: common/admin/manager
 
@@ -76,7 +65,7 @@ No Preview/Deprecated APIs found. All APIs are considered stable.
 
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
-Admin.ApplyExportInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+Admin.ApplyExportInfo | v0.40.0 | v0.42.0 | 
 
 ## Package: rados/striper
 
@@ -101,8 +90,8 @@ GenericResource.Convert | v0.39.0 | v0.41.0 |
 ToGeneric | v0.39.0 | v0.41.0 | 
 ShowOptions.SetGeneric | v0.39.0 | v0.41.0 | 
 ShowOptions.Generic | v0.39.0 | v0.41.0 | 
-ApplyOptions.SetGeneric | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
-ApplyOptions.Generic | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
+ApplyOptions.SetGeneric | v0.40.0 | v0.42.0 | 
+ApplyOptions.Generic | v0.40.0 | v0.42.0 | 
 
 ## Package: common/admin/osd
 

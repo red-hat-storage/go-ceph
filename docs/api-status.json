@@ -400,34 +400,33 @@
         "comment": "Close closes the snapshot diff handle.\n\nImplements:\n\n\tint ceph_close_snapdiff(struct ceph_snapdiff_info* snapdiff);\n",
         "added_in_version": "v0.37.0",
         "became_stable_version": "v0.39.0"
-      }
-    ],
-    "preview_api": [
-      {
-        "name": "FileBlockDiffInit",
-        "comment": "FileBlockDiffInit initializes the block diff stream to get file block deltas.\nIt takes the mount handle, root path, relative path, snapshot names and returns\na FileBlockDiffInfo struct that contains the block diff stream handle.\n\nImplements:\n\n\t    int ceph_file_blockdiff_init(\n\t\t    struct ceph_mount_info* cmount,\n\t\t\tconst char* root_path,\n\t\t\tconst char* rel_path,\n\t\t\tconst char* snap1,\n\t\t\tconst char* snap2,\n\t\t\tstruct ceph_file_blockdiff_info* out_info);\n",
-        "added_in_version": "v0.38.0",
-        "expected_stable_version": "v0.40.0"
       },
       {
-        "name": "FileBlockDiffInfo.Close",
-        "comment": "Close closes the block diff stream.\n\nImplements:\n\nint ceph_file_blockdiff_finish(struct ceph_file_blockdiff_info* info);\n",
+        "name": "FileBlockDiffInit",
+        "comment": "FileBlockDiffInit initializes the block diff stream to get file block deltas.\nIt takes the mount handle, root path, relative path, snapshot names and returns\na FileBlockDiffInfo struct that contains the block diff stream handle.\n\nImplements:\n\n\tint ceph_file_blockdiff_init(struct ceph_mount_info* cmount,\n\t\t\t\t     const char* root_path,\n\t\t\t\t     const char* rel_path,\n\t\t\t\t     const char* snap1,\n\t\t\t\t     const char* snap2,\n\t\t\t\t     struct ceph_file_blockdiff_info* out_info);\n",
         "added_in_version": "v0.38.0",
-        "expected_stable_version": "v0.40.0"
+        "became_stable_version": "v0.40.0"
+      },
+      {
+        "name": "FileBlockDiffInfo.Read",
+        "comment": "Read retrieves the next set of changed blocks for a file.\n\nImplements:\n\n\tint ceph_file_blockdiff(struct ceph_file_blockdiff_info* info,\n\t\t\t\tstruct ceph_file_blockdiff_changedblocks* blocks);\n",
+        "added_in_version": "v0.38.0",
+        "became_stable_version": "v0.40.0"
       },
       {
         "name": "FileBlockDiffInfo.More",
         "comment": "More returns true if there are more entries to read in the block diff stream.\n",
         "added_in_version": "v0.38.0",
-        "expected_stable_version": "v0.40.0"
+        "became_stable_version": "v0.40.0"
       },
       {
-        "name": "FileBlockDiffInfo.Read",
-        "comment": "Read retrieves the next set of file block diffs.\nIt returns\n  - FileBlockDiffChangedBlocks struct that contains the number of blocks and list of ChangedBlocks and error if any.\n\nImplements:\n\n\tint ceph_file_blockdiff(struct ceph_file_blockdiff_info* info,\n\t\t\t\t\t   \t\tstruct ceph_file_blockdiff_changedblocks* blocks);\n",
+        "name": "FileBlockDiffInfo.Close",
+        "comment": "Close closes the block diff stream.\n\nImplements:\n\n\tint ceph_file_blockdiff_finish(struct ceph_file_blockdiff_info* info);\n",
         "added_in_version": "v0.38.0",
-        "expected_stable_version": "v0.40.0"
+        "became_stable_version": "v0.40.0"
       }
-    ]
+    ],
+    "preview_api": []
   },
   "cephfs/admin": {
     "stable_api": [
@@ -708,8 +707,8 @@
       {
         "name": "FSAdmin.SubVolumeGroupInfo",
         "comment": "SubVolumeGroupInfo returns information about the specified subvolume group.\n\nSimilar To:\n\n\tceph fs subvolumegroup info <volume> <group_name>\n",
-        "added_in_version": "$NEXT_RELEASE",
-        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+        "added_in_version": "v0.40.0",
+        "expected_stable_version": "v0.42.0"
       }
     ]
   },
@@ -1270,8 +1269,8 @@
       {
         "name": "IOContext.Checksum",
         "comment": "Checksum calculates the checksum of the given object data, using one of the supported checksum algorithms.\n\nImplements:\n\n\tint rados_checksum(rados_ioctx_t io,\n\t                   const char *oid,\n\t                   rados_checksum_type_t type,\n\t                   const char *init_value,\n\t                   size_t init_value_len,\n\t                   size_t len,\n\t                   uint64_t off,\n\t                   size_t chunk_size,\n\t                   char *pchecksum,\n\t                   size_t checksum_len);\n",
-        "added_in_version": "$NEXT_RELEASE",
-        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+        "added_in_version": "v0.40.0",
+        "expected_stable_version": "v0.42.0"
       }
     ]
   },
@@ -2092,8 +2091,8 @@
       {
         "name": "Image.FlattenWithProgress",
         "comment": "FlattenWithProgress removes snapshot references from the image, reporting\nprogress via the supplied callback. The flatten operation will be aborted\nif the callback returns a non-zero value.\n\nImplements:\n\n\tint rbd_flatten_with_progress(rbd_image_t image,\n\t                              librbd_progress_fn_t cb,\n\t                              void *cbdata);\n",
-        "added_in_version": "$NEXT_RELEASE",
-        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+        "added_in_version": "v0.40.0",
+        "expected_stable_version": "v0.42.0"
       }
     ]
   },
@@ -2172,40 +2171,16 @@
   "rgw/admin": {
     "preview_api": [
       {
-        "name": "API.CreateAccount",
-        "comment": "CreateAccount will create a new RGW account\n",
-        "added_in_version": "v0.38.0",
-        "expected_stable_version": "v0.40.0"
-      },
-      {
-        "name": "API.GetAccount",
-        "comment": "GetAccount will return the RGW account details\n",
-        "added_in_version": "v0.38.0",
-        "expected_stable_version": "v0.40.0"
-      },
-      {
-        "name": "API.DeleteAccount",
-        "comment": "DeleteAccount will delete the RGW account\n",
-        "added_in_version": "v0.38.0",
-        "expected_stable_version": "v0.40.0"
-      },
-      {
-        "name": "API.ModifyAccount",
-        "comment": "ModifyAccount will modify the RGW account\n",
-        "added_in_version": "v0.38.0",
-        "expected_stable_version": "v0.40.0"
-      },
-      {
         "name": "API.SetIndividualBucketRateLimit",
         "comment": "SetIndividualBucketRateLimit sets rate-limits to a specific bucket.\nhttps://docs.ceph.com/en/latest/radosgw/adminops/#set-rate-limit-for-an-individual-bucket\n",
-        "added_in_version": "$NEXT_RELEASE",
-        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+        "added_in_version": "v0.40.0",
+        "expected_stable_version": "v0.42.0"
       },
       {
         "name": "API.GetIndividualBucketRateLimit",
         "comment": "GetIndividualBucketRateLimit returns rate-limits of a specific bucket.\nhttps://docs.ceph.com/en/latest/radosgw/adminops/#get-bucket-rate-limit\n",
-        "added_in_version": "$NEXT_RELEASE",
-        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+        "added_in_version": "v0.40.0",
+        "expected_stable_version": "v0.42.0"
       }
     ],
     "stable_api": [
@@ -2363,6 +2338,30 @@
         "comment": "CheckBucketIndex checks the index of an existing bucket.\nNOTE: to check multipart object accounting with check-objects, fix must be set to True.\n",
         "added_in_version": "v0.33.0",
         "became_stable_version": "v0.37.0"
+      },
+      {
+        "name": "API.CreateAccount",
+        "comment": "CreateAccount will create a new RGW account\nhttps://docs.ceph.com/en/latest/radosgw/adminops/#create-account\n",
+        "added_in_version": "v0.38.0",
+        "became_stable_version": "v0.40.0"
+      },
+      {
+        "name": "API.GetAccount",
+        "comment": "GetAccount will return the RGW account details\nhttps://docs.ceph.com/en/latest/radosgw/adminops/#get-account-info\n",
+        "added_in_version": "v0.38.0",
+        "became_stable_version": "v0.40.0"
+      },
+      {
+        "name": "API.DeleteAccount",
+        "comment": "DeleteAccount will delete the RGW account\nhttps://docs.ceph.com/en/latest/radosgw/adminops/#remove-account\n",
+        "added_in_version": "v0.38.0",
+        "became_stable_version": "v0.40.0"
+      },
+      {
+        "name": "API.ModifyAccount",
+        "comment": "ModifyAccount will modify the RGW account\nhttps://docs.ceph.com/en/latest/radosgw/adminops/#modify-account\n",
+        "added_in_version": "v0.38.0",
+        "became_stable_version": "v0.40.0"
       }
     ]
   },
@@ -2410,8 +2409,8 @@
       {
         "name": "Admin.ApplyExportInfo",
         "comment": "ApplyExportInfo will create or update an existing NFS export.\n\nSimilar To:\n\n\tceph nfs export apply\n",
-        "added_in_version": "$NEXT_RELEASE",
-        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+        "added_in_version": "v0.40.0",
+        "expected_stable_version": "v0.42.0"
       }
     ],
     "stable_api": [
@@ -2644,14 +2643,14 @@
       {
         "name": "ApplyOptions.SetGeneric",
         "comment": "SetGeneric enables or disables returning GenericResource objects within\nthe results of the Apply function. If true all Resource objects embedded\nin Apply results will be GenericResource instances.\n",
-        "added_in_version": "$NEXT_RELEASE",
-        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+        "added_in_version": "v0.40.0",
+        "expected_stable_version": "v0.42.0"
       },
       {
         "name": "ApplyOptions.Generic",
         "comment": "Generic returns true if the apply options are set to return\nGenericResource instances in Apply results.\n",
-        "added_in_version": "$NEXT_RELEASE",
-        "expected_stable_version": "$NEXT_RELEASE_STABLE"
+        "added_in_version": "v0.40.0",
+        "expected_stable_version": "v0.42.0"
       }
     ],
     "stable_api": [
