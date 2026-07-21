@@ -29,6 +29,18 @@ IOContext.Checksum | v0.40.0 | v0.42.0 |
 Name | Added in Version | Expected Stable Version | 
 ---- | ---------------- | ----------------------- | 
 Image.FlattenWithProgress | v0.40.0 | v0.42.0 | 
+Image.RemoveSnapByID | v0.37.0 | v0.39.0 |
+Image.GetDataPoolID | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+MirrorGroupEnable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+MirrorGroupDisable | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+MirrorGroupPromote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+MirrorGroupDemote | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+MirrorGroupResync | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+MirrorGroupState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+GetMirrorGroupInfo | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+MirrorGroupStatusState.String | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+GlobalMirrorGroupStatus.LocalStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+GetGlobalMirrorGroupStatus | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
 
 ### Deprecated APIs
 
@@ -40,7 +52,13 @@ Snapshot.Set | v0.10.0 |  |
 
 ## Package: rbd/admin
 
-No Preview/Deprecated APIs found. All APIs are considered stable.
+### Preview APIs
+
+Name | Added in Version | Expected Stable Version |
+---- | ---------------- | ----------------------- |
+RBDAdmin.GroupSnapshotSchedule | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE |
+GroupSnapshotScheduleAdmin.Add | $NEXT_RELEASE | $NEXT_RELEASE_STABLE | 
 
 ## Package: rgw/admin
 
