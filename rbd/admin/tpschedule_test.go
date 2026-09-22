@@ -1,5 +1,4 @@
-//go:build !nautilus
-// +build !nautilus
+//go:build ceph_preview
 
 package admin
 
@@ -14,7 +13,7 @@ import (
 	"github.com/ceph/go-ceph/internal/commands"
 )
 
-var ssList1 = `
+var tpsList1 = `
 {
     "4": {
         "name": "rbd/",
@@ -29,8 +28,8 @@ var ssList1 = `
             }
         ]
     },
-    "4//106ff127efdc": {
-        "name": "rbd/jumpy",
+    "4/myns": {
+        "name": "mypool/myns/",
         "schedule": [
             {
                 "interval": "99m",
@@ -41,7 +40,7 @@ var ssList1 = `
 }
 `
 
-var ssList2 = `
+var tpsList2 = `
 {
     "4": {
         "name": "rbd/",
@@ -52,60 +51,64 @@ var ssList2 = `
             }
         ]
     },
-    "4//104f1d296736": {
-        "name": "rbd/baz",
+    "4/myns": {
+        "name": "mypool/myns/",
         "schedule": [
             {
                 "interval": "1d",
-                "start_time": "2021-03-02 14:00:00"
+                "start_time": "2021-08-02 14:00:00"
             }
         ]
     }
 }
 `
 
-var sStatus1 = `
+var tpsStatus1 = `
 {
-    "scheduled_images": []
+    "scheduled": []
 }
 `
-var sStatus2 = `
+var tpsStatus2 = `
 {
-    "scheduled_images": [
+    "scheduled": [
         {
-            "image": "rbd/foo",
-            "schedule_time": "2021-03-02 16:30:00"
+            "pool_name": "rbd",
+            "pool_id": "4",
+            "namespace": "",
+            "schedule_time": "2021-08-02 11:50:00"
         }
     ]
 }
 `
 
-var sStatus3 = `
+var tpsStatus3 = `
 {
-    "scheduled_images": [
+    "scheduled": [
         {
-            "image": "rbd/bar",
-            "schedule_time": "2021-03-02 16:00:00"
+            "pool_name": "mypool",
+            "pool_id": "5",
+            "namespace": "ns1",
+            "schedule_time": "2021-08-02 11:00:00"
         },
         {
-            "image": "rbd/foo",
-            "schedule_time": "2021-03-02 16:30:00"
+            "pool_name": "rbd",
+            "pool_id": "4",
+            "namespace": "",
+            "schedule_time": "2021-08-02 11:50:00"
         }
     ]
 }
 `
 
-func TestParseMirrorSnapshotScheduleList(t *testing.T) {
+func TestParseTrashPurgeScheduleList(t *testing.T) {
 	t.Run("list1", func(t *testing.T) {
-		r := commands.NewResponse([]byte(ssList1), "", nil)
-		l, err := parseMirrorSnapshotScheduleList(r)
+		r := commands.NewResponse([]byte(tpsList1), "", nil)
+		l, err := parseTrashPurgeScheduleList(r)
 		assert.NoError(t, err)
 		if assert.Len(t, l, 2) {
 			s1 := l[0]
 			s2 := l[1]
 			if s1.Name != "rbd/" {
-				// just swap them.  it shouldn't matter to the test if the map has
-				// changed the order.
 				s1, s2 = s2, s1
 			}
 			assert.Equal(t, "rbd/", s1.Name)
@@ -117,8 +120,8 @@ func TestParseMirrorSnapshotScheduleList(t *testing.T) {
 				assert.EqualValues(t, "", s1.Schedule[1].StartTime)
 			}
 
-			assert.Equal(t, "rbd/jumpy", s2.Name)
-			assert.Equal(t, "4//106ff127efdc", s2.LevelSpecID)
+			assert.Equal(t, "mypool/myns/", s2.Name)
+			assert.Equal(t, "4/myns", s2.LevelSpecID)
 			if assert.Len(t, s2.Schedule, 1) {
 				assert.EqualValues(t, "99m", s2.Schedule[0].Interval)
 				assert.EqualValues(t, "", s2.Schedule[0].StartTime)
@@ -126,15 +129,13 @@ func TestParseMirrorSnapshotScheduleList(t *testing.T) {
 		}
 	})
 	t.Run("list2", func(t *testing.T) {
-		r := commands.NewResponse([]byte(ssList2), "", nil)
-		l, err := parseMirrorSnapshotScheduleList(r)
+		r := commands.NewResponse([]byte(tpsList2), "", nil)
+		l, err := parseTrashPurgeScheduleList(r)
 		assert.NoError(t, err)
 		if assert.Len(t, l, 2) {
 			s1 := l[0]
 			s2 := l[1]
 			if s1.Name != "rbd/" {
-				// just swap them.  it shouldn't matter to the test if the map has
-				// changed the order.
 				s1, s2 = s2, s1
 			}
 			assert.Equal(t, "rbd/", s1.Name)
@@ -144,67 +145,73 @@ func TestParseMirrorSnapshotScheduleList(t *testing.T) {
 				assert.EqualValues(t, "", s1.Schedule[0].StartTime)
 			}
 
-			assert.Equal(t, "rbd/baz", s2.Name)
-			assert.Equal(t, "4//104f1d296736", s2.LevelSpecID)
+			assert.Equal(t, "mypool/myns/", s2.Name)
+			assert.Equal(t, "4/myns", s2.LevelSpecID)
 			if assert.Len(t, s2.Schedule, 1) {
 				assert.EqualValues(t, "1d", s2.Schedule[0].Interval)
-				assert.EqualValues(t, "2021-03-02 14:00:00", s2.Schedule[0].StartTime)
+				assert.EqualValues(t, "2021-08-02 14:00:00", s2.Schedule[0].StartTime)
 			}
 		}
 	})
 	t.Run("empty", func(t *testing.T) {
 		r := commands.NewResponse([]byte("{}"), "", nil)
-		l, err := parseMirrorSnapshotScheduleList(r)
+		l, err := parseTrashPurgeScheduleList(r)
 		assert.NoError(t, err)
 		assert.Len(t, l, 0)
 	})
 	t.Run("error", func(t *testing.T) {
 		r := commands.NewResponse([]byte{}, "", errors.New("yikes"))
-		l, err := parseMirrorSnapshotScheduleList(r)
+		l, err := parseTrashPurgeScheduleList(r)
 		assert.Error(t, err)
 		assert.Len(t, l, 0)
 	})
 }
 
-func TestParseMirrorSnapshotScheduleStatus(t *testing.T) {
+func TestParseTrashPurgeScheduleStatus(t *testing.T) {
 	t.Run("status1", func(t *testing.T) {
-		r := commands.NewResponse([]byte(sStatus1), "", nil)
-		s, err := parseMirrorSnapshotScheduleStatus(r)
+		r := commands.NewResponse([]byte(tpsStatus1), "", nil)
+		s, err := parseTrashPurgeScheduleStatus(r)
 		assert.NoError(t, err)
 		assert.Len(t, s, 0)
 	})
 	t.Run("status2", func(t *testing.T) {
-		r := commands.NewResponse([]byte(sStatus2), "", nil)
-		s, err := parseMirrorSnapshotScheduleStatus(r)
+		r := commands.NewResponse([]byte(tpsStatus2), "", nil)
+		s, err := parseTrashPurgeScheduleStatus(r)
 		assert.NoError(t, err)
 		if assert.Len(t, s, 1) {
-			assert.Equal(t, "rbd/foo", s[0].Image)
-			assert.Contains(t, s[0].ScheduleTime, "16:30")
+			assert.Equal(t, "rbd", s[0].PoolName)
+			assert.Equal(t, "4", s[0].PoolID)
+			assert.Equal(t, "", s[0].Namespace)
+			assert.Contains(t, s[0].ScheduleTime, "11:50")
 		}
 	})
 	t.Run("status3", func(t *testing.T) {
-		r := commands.NewResponse([]byte(sStatus3), "", nil)
-		s, err := parseMirrorSnapshotScheduleStatus(r)
+		r := commands.NewResponse([]byte(tpsStatus3), "", nil)
+		s, err := parseTrashPurgeScheduleStatus(r)
 		assert.NoError(t, err)
 		if assert.Len(t, s, 2) {
-			assert.Equal(t, "rbd/bar", s[0].Image)
-			assert.Contains(t, s[0].ScheduleTime, "16:00")
-			assert.Equal(t, "rbd/foo", s[1].Image)
-			assert.Contains(t, s[1].ScheduleTime, "16:30")
+			assert.Equal(t, "mypool", s[0].PoolName)
+			assert.Equal(t, "5", s[0].PoolID)
+			assert.Equal(t, "ns1", s[0].Namespace)
+			assert.Contains(t, s[0].ScheduleTime, "11:00")
+			assert.Equal(t, "rbd", s[1].PoolName)
+			assert.Equal(t, "4", s[1].PoolID)
+			assert.Equal(t, "", s[1].Namespace)
+			assert.Contains(t, s[1].ScheduleTime, "11:50")
 		}
 	})
 	t.Run("error", func(t *testing.T) {
 		r := commands.NewResponse([]byte{}, "", errors.New("zrkk"))
-		s, err := parseMirrorSnapshotScheduleStatus(r)
+		s, err := parseTrashPurgeScheduleStatus(r)
 		assert.Error(t, err)
 		assert.Len(t, s, 0)
 	})
 }
 
-func TestMirrorSnapshotScheduleAddRemove(t *testing.T) {
+func TestTrashPurgeScheduleAddRemove(t *testing.T) {
 	ensureDefaultPool(t)
 	ra := getAdmin(t)
-	scheduler := ra.MirrorSnashotSchedule()
+	scheduler := ra.TrashPurgeSchedule()
 	t.Run("noStartTime", func(t *testing.T) {
 		err := scheduler.Add(NewLevelSpec(defaultPoolName, "", ""), Interval("1d"), NoStartTime)
 		assert.NoError(t, err)
@@ -225,11 +232,10 @@ func TestMirrorSnapshotScheduleAddRemove(t *testing.T) {
 	})
 }
 
-func TestMirrorSnapshotScheduleList(t *testing.T) {
+func TestTrashPurgeScheduleList(t *testing.T) {
 	ensureDefaultPool(t)
 	ra := getAdmin(t)
-	// assume a pool of "rbd" exists?
-	scheduler := ra.MirrorSnashotSchedule()
+	scheduler := ra.TrashPurgeSchedule()
 	err := scheduler.Add(NewLevelSpec(defaultPoolName, "", ""), Interval("1d"), NoStartTime)
 	assert.NoError(t, err)
 	defer func() {
@@ -256,8 +262,6 @@ func TestMirrorSnapshotScheduleList(t *testing.T) {
 	if assert.Len(t, slist, 1) {
 		assert.Equal(t, "rbd/", slist[0].Name)
 		if assert.Len(t, slist[0].Schedule, 2) {
-			// ceph doesn't return the list in a "stable" order so we just
-			// take the lazy approach and sort by the interval value
 			sched := slist[0].Schedule
 			sort.Slice(sched, func(i, j int) bool {
 				return sched[i].Interval < sched[j].Interval
