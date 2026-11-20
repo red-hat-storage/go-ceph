@@ -1,5 +1,7 @@
-//go:build ceph_preview
-// +build ceph_preview
+//go:build ceph_preview && ceph_group_mirror
+// +build ceph_preview,ceph_group_mirror
+
+// +ceph:api:skip
 
 package rbd
 
