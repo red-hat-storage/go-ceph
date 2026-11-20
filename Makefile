@@ -71,6 +71,13 @@ ifeq ($(CEPH_VERSION),main)
 	GO_CEPH_VERSION := main
 	BUILD_TAGS := main,ceph_main
 endif
+# WIP versions for testing experimental features
+ifeq ($(CEPH_VERSION),wip-rbd-cgsm-base)
+	CEPH_TAG ?= wip-rbd-cgsm-base
+	CEPH_IMG ?= quay.ceph.io/ceph-ci/ceph
+	GO_CEPH_VERSION := wip-rbd-cgsm-base
+	BUILD_TAGS := tentacle,ceph_preview,ibm_ceph_group_mirror
+endif
 
 GO_CMD:=go
 GOFMT_CMD:=gofmt

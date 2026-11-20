@@ -131,6 +131,41 @@ func isPreviewFile(file *ast.File) bool {
 	return false
 }
 
+func dependsOnGroupMirrorTag(expr constraint.Expr) bool {
+	const groupMirrorTag = "ibm_ceph_group_mirror"
+	switch e := expr.(type) {
+	case *constraint.TagExpr:
+		return e.Tag == groupMirrorTag
+	case *constraint.AndExpr:
+		return dependsOnGroupMirrorTag(e.X) || dependsOnGroupMirrorTag(e.Y)
+	}
+	return false
+}
+
+func isSkippedFile(file *ast.File) bool {
+	if len(file.Comments) == 0 {
+		return false
+	}
+
+	// Check if we're testing with a WIP version that should include skipped APIs
+	// This allows testing experimental APIs with specific Ceph builds
+	goCephVersion := os.Getenv("GO_CEPH_VERSION")
+	if goCephVersion != "" && strings.HasPrefix(goCephVersion, "wip-") {
+		logger.Printf("WIP version detected (%s), not skipping files\n", goCephVersion)
+		return false
+	}
+
+	for _, c := range file.Comments[0].List {
+		if c == nil {
+			continue
+		}
+		if expr, err := constraint.Parse(c.Text); err == nil {
+			return dependsOnGroupMirrorTag(expr)
+		}
+	}
+	return false
+}
+
 func (v *visitor) checkCalled(s *ast.SelectorExpr) {
 	ident, ok := s.X.(*ast.Ident)
 	if !ok {
@@ -159,6 +194,10 @@ func (v *visitor) Visit(node ast.Node) ast.Visitor {
 	switch n := node.(type) {
 	case *ast.File:
 		v.currentFunc = nil
+		if isSkippedFile(n) {
+			logger.Printf("skipping file due to +ceph:api:skip directive\n")
+			return nil
+		}
 		v.inPreviewFile = isPreviewFile(n)
 		return v
 	case *ast.FuncDecl:

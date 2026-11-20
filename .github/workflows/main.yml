@@ -106,6 +106,9 @@ jobs:
         - ceph_version: "tentacle"
           go_version: ${{ needs.go-versions.outputs.latest }}
           no_preview: 1
+        # WIP version for testing experimental RBD group mirror APIs, development branch tracked here https://github.com/ceph/ceph/tree/wip-rbd-cgsm-base
+        - ceph_version: "wip-rbd-cgsm-base"
+          go_version: ${{ needs.go-versions.outputs.latest }}
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
     - name: Set cores to get stored as "core"

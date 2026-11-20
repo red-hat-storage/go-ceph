@@ -1,5 +1,6 @@
-//go:build ceph_preview
-// +build ceph_preview
+//go:build ceph_preview && ibm_ceph_group_mirror
+
+// +ceph:api:skip
 
 package admin
 
