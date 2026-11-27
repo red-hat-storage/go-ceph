@@ -194,43 +194,134 @@ func TestGroupMirroring(t *testing.T) {
 
 	t.Run("GroupImagesAddAndRemoval", func(t *testing.T) {
 		// create another image
-		name := GetUUID()
+		name1 := GetUUID()
 		options := NewRbdImageOptions()
 		assert.NoError(t,
 			options.SetUint64(ImageOptionOrder, uint64(testImageOrder)))
-		err = CreateImage(ioctx2, name, testImageSize, options)
+		err = CreateImage(ioctx2, name1, testImageSize, options)
 		require.NoError(t, err)
 
-		// adding image to mirror enabled group should pass
-		err = GroupImageAdd(ioctx2, groupName, ioctx2, name)
+		// adding image to mirror enabled group, requires enabling mirroring on image first
+		img1, err := OpenImage(ioctx2, name1, NoSnapshot)
+		assert.NoError(t, err)
+		defer func() {
+			assert.NoError(t, img1.Close())
+		}()
+
+		err = img1.MirrorEnable(ImageMirrorModeSnapshot)
+		assert.NoError(t, err)
+		// wait for mirroring to be enabled
+		for i := 0; i < waitCounter; i++ {
+			resp, _ := img1.GetMirrorImageInfo()
+			if resp.State.String() == "enabled" {
+				break
+			}
+			if i == waitCounter-1 {
+				assert.Fail(t, "mirror not enabled")
+			}
+			time.Sleep(2 * time.Second)
+		}
+		err = GroupImageAdd(ioctx2, groupName, ioctx2, name1)
 		assert.NoError(t, err)
 
 		// disable mirroring
 		err = MirrorGroupDisable(ioctx2, groupName, false)
 		assert.NoError(t, err)
+		// wait for mirroring to be disabled
+		for i := 0; i < waitCounter; i++ {
+			resp, _ := GetMirrorGroupInfo(ioctx2, groupName)
+			if resp.State.String() == "disabled" {
+				break
+			}
+			if i == waitCounter-1 {
+				assert.Fail(t, "mirror not disabled")
+			}
+			time.Sleep(2 * time.Second)
+		}
 
 		// adding image to mirror disabled group should pass
-		err = GroupImageAdd(ioctx2, groupName, ioctx2, name)
+		err = GroupImageAdd(ioctx2, groupName, ioctx2, name1)
 		assert.NoError(t, err)
 
 		// enable mirroring
 		err = MirrorGroupEnable(ioctx2, groupName, ImageMirrorModeSnapshot)
 		assert.NoError(t, err)
+		// wait for mirroring to be enabled
+		for i := 0; i < waitCounter; i++ {
+			resp, _ := GetMirrorGroupInfo(ioctx2, groupName)
+			if resp.State.String() == "enabled" {
+				break
+			}
+			if i == waitCounter-1 {
+				assert.Fail(t, "mirror not enabled")
+			}
+			time.Sleep(2 * time.Second)
+		}
 
-		// removing image from mirror enabled group should fail
-		err = GroupImageRemove(ioctx2, groupName, ioctx2, name)
-		assert.Error(t, err)
+		// removing image from mirror enabled group should pass
+		err = GroupImageRemove(ioctx2, groupName, ioctx2, name1)
+		assert.NoError(t, err)
+
+		// image removed from group should still have mirroring enabled
+		resp, err := img1.GetMirrorImageInfo()
+		assert.Equal(t, "enabled", resp.State.String())
+
+		// disable mirroring on removed image
+		err = img1.MirrorDisable(false)
+		assert.NoError(t, err)
+		// wait for mirroring to be disabled
+		for i := 0; i < waitCounter; i++ {
+			resp, _ := img1.GetMirrorImageInfo()
+			if resp.State.String() == "disabled" {
+				break
+			}
+			if i == waitCounter-1 {
+				assert.Fail(t, "mirror not disabled")
+			}
+			time.Sleep(2 * time.Second)
+		}
 
 		// disable mirroring
 		err = MirrorGroupDisable(ioctx2, groupName, false)
 		assert.NoError(t, err)
+		// wait for mirroring to be disabled
+		for i := 0; i < waitCounter; i++ {
+			resp, _ := GetMirrorGroupInfo(ioctx2, groupName)
+			if resp.State.String() == "disabled" {
+				break
+			}
+			if i == waitCounter-1 {
+				assert.Fail(t, "mirror not disabled")
+			}
+			time.Sleep(2 * time.Second)
+		}
 
-		// removing image from mirror disabled group should pass
-		err = GroupImageRemove(ioctx2, groupName, ioctx2, name)
+		// disable mirroring on group should disable mirroing on the image part of group
+		img, err := OpenImage(ioctx2, name, NoSnapshot)
 		assert.NoError(t, err)
+		defer func() {
+			assert.NoError(t, img.Close())
+		}()
+		resp, err := img.GetMirrorImageInfo()
+		assert.Equal(t, "disabled", resp.State.String())
 
 		// enable mirroring
 		err = MirrorGroupEnable(ioctx2, groupName, ImageMirrorModeSnapshot)
 		assert.NoError(t, err)
+		// wait for mirroring to be enabled
+		for i := 0; i < waitCounter; i++ {
+			resp, _ := GetMirrorGroupInfo(ioctx2, groupName)
+			if resp.State.String() == "enabled" {
+				break
+			}
+			if i == waitCounter-1 {
+				assert.Fail(t, "mirror not enabled")
+			}
+			time.Sleep(2 * time.Second)
+		}
+
+		// enabling mirroring on group should enable mirroring on the image part of group
+		resp, err := img.GetMirrorImageInfo()
+		assert.Equal(t, "enabled", resp.State.String())
 	})
 }
